@@ -20,13 +20,8 @@ class Dashboard:
         self.alcohol = 0
         self.wineQuality = 0
         self.pageTile = 0
-        self.predictedThree = 0
-        self.predictedFour = 0
-        self.predictedFive = 0
-        self.predictedSix = 0
-        self.predictedSeven = 0
-        self.predictedEight = 0
-        self.predictedNine = 0
+        self.predictedYes = 0
+        self.predictedNo = 0
         self.fixedAcidityMin = datasetMixMax.iloc[0][1]
         self.fixedAcidityMax = datasetMixMax.iloc[0][2]
         self.volatileAcidityMin = datasetMixMax.iloc[1][1]
@@ -76,7 +71,7 @@ class Dashboard:
             x[8] = self.pH
             x[9] = self.sulphates
             x[10] = self.alcohol
-            self.wineQuality = self.model.predict([x])[0]
+            self.pred = self.model.predict([x])[0]
 
     def pageConfig(self):
         self.config = st.set_page_config(
@@ -95,45 +90,15 @@ class Dashboard:
         </div>
         """
 
-        self.predictedThree = """  
-        <div style="background-color:#0da68f; padding:10px">
-            <h2 style="color:black; text-align:center; font-weight:bold;"> Wine Quality: 3.0 </h2>
+        self.predictedYes = """  
+        <div style="background-color:#025246; padding:10px">
+            <h2 style="color:white; text-align:center; font-weight:bold;"> Buy? Yes 👍 </h2>
         </div>
         """
 
-        self.predictedFour = """  
-        <div style="background-color:#0da68f; padding:10px">
-            <h2 style="color:black; text-align:center; font-weight:bold;"> Wine Quality: 4.0 </h2>
-        </div>
-        """
-
-        self.predictedFive = """  
-        <div style="background-color:#0da68f; padding:10px">
-            <h2 style="color:black; text-align:center; font-weight:bold;"> Wine Quality: 5.0 </h2>
-        </div>
-        """
-
-        self.predictedSix = """  
-        <div style="background-color:#0da68f; padding:10px">
-            <h2 style="color:black; text-align:center; font-weight:bold;"> Wine Quality: 6.0 </h2>
-        </div>
-        """
-
-        self.predictedSeven = """  
-        <div style="background-color:#0da68f; padding:10px">
-            <h2 style="color:black; text-align:center; font-weight:bold;"> Wine Quality: 7.0 </h2>
-        </div>
-        """
-
-        self.predictedEight = """  
-        <div style="background-color:#0da68f; padding:10px">
-            <h2 style="color:black; text-align:center; font-weight:bold;"> Wine Quality: 8.0 </h2>
-        </div>
-        """
-
-        self.predictedNine = """  
-        <div style="background-color:#0da68f; padding:10px">
-            <h2 style="color:black; text-align:center; font-weight:bold;"> Wine Quality: 9.0 </h2>
+        self.predictedNo = """  
+        <div style="background-color:#ff0000; padding:10px">
+            <h2 style="color:white; text-align:center; font-weight:bold;"> Buy? No 👎 </h2>
         </div>
         """
 
@@ -145,22 +110,11 @@ dashboard.inputFields()
 
 if st.button('Predict'):
     dashboard.predict()
-    quality = dashboard.wineQuality
+    pred = dashboard.pred
 
-    if quality == 3.0:
-        st.markdown(dashboard.predictedThree, unsafe_allow_html=True)
-    elif quality == 4.0:
-        st.markdown(dashboard.predictedFour, unsafe_allow_html=True)
-    elif quality == 5.0:
-        st.markdown(dashboard.predictedFive, unsafe_allow_html=True)
-    elif quality == 6.0:
-        st.markdown(dashboard.predictedSix, unsafe_allow_html=True)
-    elif quality == 7.0:
-        st.markdown(dashboard.predictedSeven, unsafe_allow_html=True)
-    elif quality == 8.0:
-        st.markdown(dashboard.predictedEight, unsafe_allow_html=True)
-    elif quality == 9.0:
-        st.markdown(dashboard.predictedNine, unsafe_allow_html=True)
+    if pred == 0:
+        st.markdown(dashboard.predictedNo, unsafe_allow_html=True)
+    elif pred == 1:
+        st.markdown(dashboard.predictedYes, unsafe_allow_html=True)
     else:
         st.error('Sorry, it seems to be an error. Please re-run the algorithm.')
-
