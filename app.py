@@ -75,7 +75,7 @@ class Dashboard:
 
     def pageConfig(self):
         self.config = st.set_page_config(
-            page_title="Wine Quality Prediction",
+            page_title="Wine Buy or Not?",
             page_icon="🍷",
             layout="centered",
             initial_sidebar_state="expanded",
@@ -84,7 +84,7 @@ class Dashboard:
     def customHTML(self):
         self.pageTile = """
         <div style="background:#025246 ;padding:10px">
-            <h2 style="color:white;text-align:center;">Wine Quality Prediction 🍷</h2>
+            <h2 style="color:white;text-align:center;">Wine Buy or Not? 🍷</h2>
             <h3 style="color:white;text-align:center;">GitHub Repo 
             <a target="_blank" href="https://github.com/antoneev/WineQuality">Click Here</a></h3>
         </div>
